@@ -1,0 +1,43 @@
+{% block navbar %}
+<nav
+  class="flex w-100 justify-between items-center h-16 bg-[#ffffff] px-20 drop-shadow-md"
+>
+  <a href="/">
+    <span class="flex text-xl justify-center items-center">
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/fir-project-31c96.appspot.com/o/docsafe-logo-icon.png?alt=media&token=cf839b09-489a-4708-a7d9-e5e80ce13935"
+        alt=""
+        class="size-8 mr-2"
+      />
+      <span class="font-semibold text-gray-700">Safe</span>
+      <span class="font-medium text-gray-500">Docs</span>
+    </span>
+  </a>
+  <span>
+    <ul class="flex gap-7 font-medium">
+      <li class="cursor-pointer"><a href="/">Home</a></li>
+      <!-- <li class="cursor-pointer"><a href="/">FAQs</a></li> -->
+    </ul>
+  </span>
+  <span>
+    {% if request.user.is_authenticated %}
+    <a href="/user/logout">
+      <button class="border-2 border-black rounded-md px-8 py-2">
+        Signout
+      </button>
+    </a>
+    {% else %}
+    <a href="/user/register">
+      <button class="border-2 border-black rounded-md px-8 py-2">Signup</button>
+    </a>
+    {% endif %}
+    {% if not request.user.is_authenticated %}
+    <a href="/user/login">
+      <button class="border-2 border-black rounded-md px-8 py-2">
+        Login
+      </button>
+    </a>
+    {% endif %}
+  </span>
+</nav>
+{% endblock %}

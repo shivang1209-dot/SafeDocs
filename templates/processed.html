@@ -1,0 +1,53 @@
+{% block processed %}
+<div
+  class="w-[40vw] h-fit flex flex-col justify-center items-center bg-[#ffffff] rounded-lg drop-shadow-md shadow-gray-400 hidden"
+>
+  <h1 class="text-left w-full font-semibold text-[#727CF5] text-xl px-8 mt-8">
+    Files Uploaded
+  </h1>
+  <div class="grid px-8 py-4 w-full">
+    {% for file in processed_files %} {% if forloop.counter|divisibleby:2 %}
+    <div
+      class="flex justify-between items-center w-full p-3 bg-gray-100 border-[#727CF5]"
+    >
+      <p class="font-medium">{{ file.fileName }}</p>
+      <a
+        href="{{ file.fileUrl }}"
+        download="true"
+        class="text-white rounded-full size-5 flex justify-center items-center"
+      >
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/fir-project-31c96.appspot.com/o/file%20remove%20icon.svg?alt=media&token=ee35627b-9e75-4293-b19f-2457e90fe8b6"
+          alt=""
+          class="opacity-40"
+        />
+      </a>
+    </div>
+    {% else %}
+    <div
+      class="flex justify-between items-center w-full p-3 bg-gray-200 border-[#727CF5]"
+    >
+      <p class="font-medium">{{ file.fileName }}</p>
+      <a
+        href="{{ file.fileUrl }}"
+        download="true"
+        class="text-white rounded-full size-5 flex justify-center items-center"
+      >
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/fir-project-31c96.appspot.com/o/file%20remove%20icon.svg?alt=media&token=ee35627b-9e75-4293-b19f-2457e90fe8b6"
+          alt=""
+          class="opacity-40"
+        />
+      </a>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+  <div class="w-full grid justify-end mt-5">
+    <button
+      class="bg-[#727CF5] px-12 py-3 text-white rounded-tl-lg rounded-br-lg"
+    >
+      Encryt Files
+    </button>
+  </div>
+</div>
+{% endblock %}

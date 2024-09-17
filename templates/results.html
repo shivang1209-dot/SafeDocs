@@ -1,0 +1,43 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="shortcut icon"
+      href="https://firebasestorage.googleapis.com/v0/b/fir-project-31c96.appspot.com/o/docsafe-logo-icon.png?alt=media&token=cf839b09-489a-4708-a7d9-e5e80ce13935"
+      type="image/x-icon"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results - SafeDocs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% tailwind_css %}
+  </head>
+  <body class="bg-[#f5f5f7] font-[Poppins]">
+    {% include "navbar.html" %}
+
+    <div class="grid w-full h-[80vh] justify-center items-center m-auto">
+      <h1 class="text-center font-semibold text-3xl my-5">Extracted Data</h1>
+      <div class="w-fit h-fit bg-white p-8 rounded-xl drop-shadow-sm m-auto">
+        <form action="">
+          <input type="text" name="" id="" class="hidden">
+        </form>
+        {% for data in processedData %} {% for key, value in data.items %}
+        <div class="grid grid-cols-2 w-[40vw] h-full justify-center items-center">
+          <span class="border-b-2 py-2 px-4 h-full font-semibold">{{key}}</span>
+          <span class="border-b-2 py-2 px-4 h-full">{{value}}</span>
+         
+        </div>
+        {%endfor %} {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

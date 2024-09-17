@@ -1,0 +1,86 @@
+{% load widget_tweaks %} {% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - SafeDocs</title>
+    <link
+      rel="shortcut icon"
+      href="https://firebasestorage.googleapis.com/v0/b/fir-project-31c96.appspot.com/o/docsafe-logo-icon.png?alt=media&token=cf839b09-489a-4708-a7d9-e5e80ce13935"
+      type="image/x-icon"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        label{
+            font-weight: 500;
+            font-size: 14px;
+        }
+        input[type=checkbox]{
+            accent-color: #727CF5 !important;
+        }
+      ::-webkit-scrollbar {
+        width: 7px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f5f5f7;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #727CF5;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #727CF5;
+      }
+    </style>
+
+    {% tailwind_css %}
+  </head>
+  <body class="w-100 grid bg-[#f5f5f7] font-[Poppins]">
+    {% include 'navbar.html' %}
+
+    <div class="flex flex-col justify-center items-center h-[90vh] gap-5">
+      <div class="w-[30vw] grid grid-cols-2 gap-5 text-md">
+        <a href="/user/login">
+        <button
+          class="shadow-md bg-white rounded-md w-full py-2 text-[#727CF5]"
+        >
+        Login
+        </button>
+        </a>
+        <a href="/user/register">
+        <button
+          class="bg-[#727CF5] shadow-md rounded-md w-full py-2 text-white"
+        >
+        Sign Up
+        </button>
+        </a>
+      </div>
+      <div class="bg-white p-5 rounded-lg w-[30vw] shadow-md">
+        <h1 class="text-lg font-semibold text-center">Sign Up</h1>
+        <form action="" class="flex flex-col w-full gap-2 mt-2" method="POST">
+          {% csrf_token %}
+          <label for="username">Username</label>
+          {% render_field form.username id="username" class+="bg-[#F3F0FF] rounded-md text-gray-700 outline-none border-none" placeholder="username"%}
+          <label for="email">Email</label>
+          {% render_field form.email id="email" class+="bg-[#F3F0FF] rounded-md text-gray-700 outline-none border-none" placeholder="Email Address"%}
+          <label for="password">Password</label>
+          {% render_field form.password1 id="password" class+="bg-[#F3F0FF] rounded-md text-gray-700 outline-none border-none" placeholder="Enter password"%}
+          <label for="confirmPassword">Confirm Password</label>
+          {% render_field form.password2 id="confirmPassword" class+="bg-[#F3F0FF] rounded-md text-gray-700 outline-none border-none" placeholder="confirm password"%}
+          <!-- <span class="flex gap-2 items-center mt-2"><input type="checkbox" name="" id="" class="bg-gray-200 rounded-sm accent-[#727CF5]"><p>Remember Me</p></span> -->
+          <button class="w-full bg-[#727CF5] text-white rounded-md py-3 mt-4 font-medium text-sm ">Sign Up</button>
+          <span class="flex text-center items-center justify-center font-medium text-sm mt-2"><p>Already have an account?</p>&nbsp;<a href="" class="underline text-[#727CF5]">Login here</a></span>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
