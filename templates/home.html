@@ -1,4 +1,4 @@
-{% load static tailwind_tags %}
+{% load static tailwind_tags %} 
 {%load widget_tweaks%}
 <!DOCTYPE html>
 <html lang="en">
@@ -43,18 +43,28 @@
     {% include 'navbar.html' %}
     <div class="flex flex-col justify-center items-center h-[90vh] gap-16">
       <div class="grid justify-center items-center gap-4 w-[50vw]">
-        <h1 class="text-5xl font-semibold text-center">Information Detection <br>& Masking</h1>
+        <h1 class="text-5xl font-semibold text-center">
+          Information Detection <br />& Masking
+        </h1>
         <p class="text-center w-[40vw] text-sm text-[#6A6A6A]">
-        Governemnt documents may contain sensitive and Personally Identifiable Information (PII), SafeDocs helps you identify these sensitive information and mask them, to be further secure.
+          Governemnt documents may contain sensitive and Personally Identifiable
+          Information (PII), SafeDocs helps you identify these sensitive
+          information and mask them, to be further secure.
         </p>
       </div>
       <div class="grid">
         <div
           class="w-[35vw] h-[30vh] flex flex-col justify-center items-center bg-[#ffffff] rounded-lg border-2 border-dashed border-[#727CF5] drop-shadow-md shadow-gray-400"
         >
-          <form class="mb-5" id="file-form" action="{% url 'results' %}" enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
-            {%render_field form.file id="choose-file-input" class="hidden" accept=".pdf" %}
+          <form
+            class="mb-5"
+            id="file-form"
+            action="{% url 'results' %}"
+            enctype="multipart/form-data"
+            method="POST"
+          >
+            {% csrf_token %} 
+            {% render_field form.file id="choose-file-input" class="hidden" accept=".pdf" %}
             <button
               class="bg-[#727CF5] text-[#ffffff] flex gap-2 py-2 px-3 rounded-md"
               id="choose-files-btn"
@@ -87,36 +97,37 @@
         <div class="flex gap-10 justify-center items-center">
           <img src="https://placehold.co/400x250" alt="" class="rounded-lg" />
           <p class="w-[40vw]">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis
-            orci, proin neque hendrerit tempor tristique nunc accumsan
-            himenaeos, molestie cubilia duis suscipit blandit iaculis
-            pellentesque tincidunt.
+            On the homepage, click on the " Choose files" button. Upload your
+            file. Accepted formats include PDF, JPEG, PNG.
           </p>
         </div>
         <div class="flex gap-10 justify-center items-center">
           <p class="w-[40vw]">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis
-            orci, proin neque hendrerit tempor tristique nunc accumsan
-            himenaeos, molestie cubilia duis suscipit blandit iaculis
-            pellentesque tincidunt.
+            After uploading, the application will scan your document for any
+            exposed Personally Identifiable Information (PII). The exposed data,
+            such as names, addresses, or identification numbers, will be
+            displayed on the screen. If you wish to copy any specific piece of
+            data, simply click on the "Copy" button next to the corresponding
+            data field.
           </p>
           <img src="https://placehold.co/400x250" alt="" class="rounded-lg" />
         </div>
         <div class="flex gap-10 justify-center items-center">
           <img src="https://placehold.co/400x250" alt="" class="rounded-lg" />
           <p class="w-[40vw]">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis
-            orci, proin neque hendrerit tempor tristique nunc accumsan
-            himenaeos, molestie cubilia duis suscipit blandit iaculis
-            pellentesque tincidunt.
+            To redact sensitive information, you need to log in. If you don’t
+            have an account, register by clicking on the "Sign Up" button. Once
+            logged in, return to the exposed data page. Click on the "Redact"
+            button. The application will create a redacted version of your
+            document, with the selected data masked.
           </p>
         </div>
         <div class="flex gap-10 justify-center items-center">
           <p class="w-[40vw]">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis
-            orci, proin neque hendrerit tempor tristique nunc accumsan
-            himenaeos, molestie cubilia duis suscipit blandit iaculis
-            pellentesque tincidunt.
+            After logging in, navigate to your dashboard by clicking on your
+            username or "Dashboard" in the main menu. In your dashboard, you’ll
+            see a list of all your redacted documents. You can download, delete,
+            or re-redact these documents as needed.
           </p>
           <img src="https://placehold.co/400x250" alt="" class="rounded-lg" />
         </div>
@@ -127,16 +138,15 @@
     <script>
       const chooseFilesBtn = document.getElementById("choose-files-btn");
       const chooseFileInput = document.getElementById("choose-file-input");
-      const fileForm=document.getElementById("file-form")
+      const fileForm = document.getElementById("file-form");
 
       chooseFilesBtn.addEventListener("click", (e) => {
-        e.preventDefault()
+        e.preventDefault();
         chooseFileInput.click();
       });
-      chooseFileInput.addEventListener("change",()=>{
-        fileForm.submit()
-      })
-
+      chooseFileInput.addEventListener("change", () => {
+        fileForm.submit();
+      });
     </script>
   </body>
 </html>

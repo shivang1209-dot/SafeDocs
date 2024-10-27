@@ -1,4 +1,4 @@
-{% load static tailwind_tags %}
+{% load static tailwind_tags %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,16 +28,71 @@
       <h1 class="text-center font-semibold text-3xl my-5">Extracted Data</h1>
       <div class="w-fit h-fit bg-white p-8 rounded-xl drop-shadow-sm m-auto">
         <form action="">
-          <input type="text" name="" id="" class="hidden">
+          <input type="text" name="" id="" class="hidden" />
         </form>
-        {% for data in processedData %} {% for key, value in data.items %}
-        <div class="grid grid-cols-2 w-[40vw] h-full justify-center items-center">
+       {% for key, value in processedData.items %}
+        <div
+          class="grid grid-cols-2 w-[45vw] h-full justify-center items-center"
+        >
           <span class="border-b-2 py-2 px-4 h-full font-semibold">{{key}}</span>
-          <span class="border-b-2 py-2 px-4 h-full">{{value}}</span>
-         
+          <span
+            class="border-b-2 py-2 px-4 valueToCopy flex items-center justify-between gap-4"
+            >{{value}}
+            <button
+              class="text-white text-center copyButton rounded-full p-2 aspect-square h-fit w-fit border-2"
+            >
+              <img src="{% static "assets/copy.png" %}" alt="" class='size-3
+              opacity-60'>
+            </button></span
+          >
+          {% comment %}
+          <span class="w-full flex justify-center items-center">
+            <button
+              class="text-white font-[14px] py-1 px-4 rounded-full text-center copyButton"
+            >
+              <img src="{% static "assets/copy.png" %}" alt="" class='w-[20%]'>
+            </button>
+          </span>
+          {% endcomment %}
         </div>
-        {%endfor %} {% endfor %}
+        {%endfor %}
+      </div>
+      <div class="grid justify-end mt-5">
+        {% comment %} <a href="/download">
+          <button
+            class="px-10 py-2 rounded-md bg-[#727CF5] text-white font-medium"
+          >
+            Redact File
+          </button>
+        </a> {% endcomment %}
+        <div class="flex gap-4"><form method="get" action="{% url 'download' file_name%}">
+          <button type="submit" class="px-10 py-2 rounded-md bg-[#727CF5] text-white font-medium">Download Redacted File</button>
+      </form>
+
+      <a href={% url "home" %} class="px-10 py-2 rounded-md bg-[#727CF5] text-white font-medium">upload another file</a></div>
       </div>
     </div>
+    <script>
+      // Select all copy buttons
+      const copyButtons = document.querySelectorAll(".copyButton");
+
+      copyButtons.forEach((button, index) => {
+        button.addEventListener("click", function () {
+          // Get the corresponding value span based on the index
+          const textToCopy =
+            document.querySelectorAll(".valueToCopy")[index].innerText;
+
+          // Use the Clipboard API to copy the text
+          navigator.clipboard
+            .writeText(textToCopy)
+            .then(function () {
+              alert("Copied to clipboard!");
+            })
+            .catch(function (err) {
+              console.error("Failed to copy: ", err);
+            });
+        });
+      });
+    </script>
   </body>
 </html>

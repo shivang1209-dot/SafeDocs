@@ -1,5 +1,10 @@
 import pymupdf
 import re
+import io
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+
 
 def extract_text_from_pdf(pdf_path, password=None):
     text = ""
@@ -10,7 +15,7 @@ def extract_text_from_pdf(pdf_path, password=None):
         
         for page in doc:
             text += page.get_text()
-        return text.strip()
+        return text.strip(),doc
     except Exception as e:
         return f"Error reading PDF: {str(e)}"
 
@@ -95,3 +100,50 @@ def extract_details(text):
             details['Father\'s Name'] = father_name_match.group(1).strip()
 
     return details
+
+
+def mask_sensitive_data_in_pdf(doc, details,file_name):
+    # Create a BytesIO buffer to save the PDF data
+    pdf_buffer = io.BytesIO()
+
+    # Process each page and redact sensitive data
+    for page_num in range(len(doc)):
+        page = doc[page_num]
+        print(f"Processing Page: {page_num + 1}")
+
+        # Mask Aadhaar Number
+        if details.get('Aadhaar Number'):
+            aadhaar_number = details['Aadhaar Number']
+            masked_aadhaar = 'XXXX XXXX ' + aadhaar_number[-4:]  # Mask first 8 digits, keep last 4
+            areas = page.search_for(aadhaar_number)
+            print(f"Found Aadhaar Number areas: {areas}")
+            for area in areas:
+                page.add_redact_annot(area, text=masked_aadhaar, fill=(1, 1, 1))  # Redact with white background
+                page.apply_redactions()  # Apply the redaction
+
+        # Mask VID
+        if details.get('VID'):
+            vid = details['VID']
+            masked_vid = 'XXXX XXXX XXXX ' + vid[-4:]  # Mask first 12 digits, keep last 4
+            areas = page.search_for(vid)
+            print(f"Found VID areas: {areas}")
+            for area in areas:
+                page.add_redact_annot(area, text=masked_vid, fill=(1, 1, 1))  # Redact with white background
+                page.apply_redactions()  # Apply the redaction
+
+    # Save the modified PDF to the BytesIO buffer
+    doc.save(pdf_buffer)
+    pdf_buffer.seek(0)
+
+    # Define the path to save the file in the media folder
+    masked_pdf_path = 'redactedFile/' + file_name
+
+    # Save the file using Django's default storage
+    file_name = default_storage.save(masked_pdf_path, ContentFile(pdf_buffer.read()))
+
+    # Close the document and the buffer
+    doc.close()
+    pdf_buffer.close()
+
+    # Return the URL of the saved file
+    return default_storage.url(file_name)

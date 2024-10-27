@@ -1,5 +1,5 @@
 """
-URL configuration for DocSafeSIH project.
+URL configuration for SafeDocs project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -26,6 +26,7 @@ urlpatterns = [
     path('user/', include('accounts.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
     path("results/",views.results,name="results"),
-    path("download/",views.redact,name="download"),
+    path("download/<str:filename>",views.download_redacted_file,name="download"),
     path("dashboard/",views.dashboard,name="dashboard")
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

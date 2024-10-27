@@ -19,21 +19,21 @@
       <!-- <li class="cursor-pointer"><a href="/">FAQs</a></li> -->
     </ul>
   </span>
-  <span>
+  <span class="flex gap-5">
     {% if request.user.is_authenticated %}
     <a href="/user/logout">
-      <button class="border-2 border-black rounded-md px-8 py-2">
+      <button class="border-2 border-black rounded-md px-8 py-1">
         Signout
       </button>
     </a>
     {% else %}
     <a href="/user/register">
-      <button class="border-2 border-black rounded-md px-8 py-2">Signup</button>
+      <button class="border-2 border-black rounded-md px-8 py-1">Signup</button>
     </a>
     {% endif %}
     {% if not request.user.is_authenticated %}
     <a href="/user/login">
-      <button class="border-2 border-black rounded-md px-8 py-2">
+      <button class=" rounded-md px-8 py-1 border-2 border-[#727CF5] bg-[#727CF5] text-white">
         Login
       </button>
     </a>
